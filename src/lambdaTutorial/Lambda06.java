@@ -86,23 +86,53 @@ public class Lambda06 {
         //TASK 07 --> haluk.txt dosyasinda "basari" kelimesinin kac kere gectigini buyuk harf kucuk harf bagımsız print ediniz.
         System.out.println("\nTASK 07 --> haluk.txt dosyasinda basari kelimesinin kac kere gectigini  yazdiriniz. -->  ");
 
-
+        System.out.println(Files.lines(haluk).
+                map(t -> t.toLowerCase().split(" ")).
+                flatMap(Arrays::stream).
+                filter(t -> t.equals("basari")).
+                count());
         //TASK 08 --> haluk.txt dosyasinda "a" harfi gecen kelimelerin sayisini print eden  programi create ediniz.
         System.out.println("\nTASK 08 --> haluk.txt dosyasinda a harfi gecen kelimelerin sayisini ekrana yazdiran programi yazdiriniz. -->  ");
-
+        System.out.println(Files.lines(haluk).//txt dosyasıne erişldi
+                map(t -> t.split(" ")).//satırlar akısa alındı
+                flatMap(Arrays::stream).//her satırdaki her kelime akısa alındı
+                filter(t -> t.contains("a")).//a bulunduran kelimeler fitrelenedi
+                count());//a bulunduran kelimeler sayıldı
 
         //TASK 09 --> haluk.txt dosyasinda icinde "a" harfi gecen kelimeleri print ediniz.
         System.out.println("\nTASK 09 --> haluk.txt dosyasinda a harfi gecen kelimeler yazdiriniz. -->  ");
+        System.out.println(Files.lines(haluk).
+                map(t -> t.split(" ")).//satırlar akısa alındı
+                        flatMap(Arrays::stream).//her satırdaki her kelime akısa alındı
+                        filter(t -> t.contains("a")).//a bulunduran kelimeler fitrelenedi
+                        collect(Collectors.toList()));
 
 
         //TASK 10 --> haluk.txt dosyasinda kac /farklı harf kullanildigini print ediniz.
         System.out.println("\nTASK 10 --> haluk.txt dosyasinda kac /farklı harf kullanildigini  yazdiriniz. -->  ");
-
+        System.out.println(Files.lines(haluk).
+                map(t -> t.replaceAll("\\W", "").//satırlar \\W ifadesi a-z A-Z 0-9 _ disindakileri kapsar
+                        replaceAll("\\d", "").
+                        split("")).//harf akısı saglanır
+                        flatMap(Arrays::stream).
+                distinct().
+                count());
 
         //TASK 11 --> haluk.txt dosyasinda kac farkli kelime kullanildigini print ediniz.
         System.out.println("\nTASK 11 --> haluk.txt dosyasinda kac farkli kelime kullanildigini  yazdiriniz. -->  ");
+        System.out.println(Files.lines(haluk).
+                map(t -> t.replaceAll("[.!,:)\\-]", "").
 
+                        split(" ")).//kelime akısı saglanır
+                        flatMap(Arrays::stream).
+                distinct().
+                count());
         //TASK 12 --> haluk.txt dosyasinda  farkli kelimeleri print ediniz
         System.out.println("\nTASK 12 --> haluk.txt dosyasinda kac farkli kelime kullanildigini  yazdiriniz. -->  ");
+        Files.lines(haluk).
+                map(t -> t.replaceAll("[.!,:)\\-]", "").
+                        split(" ")).//kelime akısı saglanır
+                flatMap(Arrays::stream).
+                distinct().forEach(System.out::println);
     }
 }
