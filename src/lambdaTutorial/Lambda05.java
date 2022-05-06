@@ -111,6 +111,7 @@ public class Lambda05 {
                 rangeClosed(1, x).
                 //reduce(Math::multiplyExact).
                         reduce(1, (t, u) -> t * u);
+
     }
 
     //TASK 08 --> Istenilen bir sayinin  x. kuvvetini ekrana yazdiran programi  create ediniz.
@@ -118,7 +119,9 @@ public class Lambda05 {
         return IntStream.
                 iterate(istenenSayi, t -> t * istenenSayi).
                 limit(x).reduce(0, (t, u) -> u);
+         //skip(x-1);//skip den sonra cıkan elemanları toList ile yazdirilmali
          // return Math.pow(istenenSayi,x);
+         //return IntStream.iterate(istenenSayi,t->t*istenenSayi).limit(x).skip(x-1).findFirst().orElseThrow();
     }
 
 }
